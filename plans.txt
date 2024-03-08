@@ -1,0 +1,27 @@
+In the next iterations of this system,
+1. "student" voting will be removed
+2. Department will become Party
+3. Parties will have there own database
+4. The databases can be updated from the admin panel
+5. Fix matplot error with missing pixel
+6. Create persistance
+7. Add vote reminders
+8. Add a way to export the vote database
+9. Lock admin panel
+10. Roles w/ different perms (Staff and State Sec can promote)
+11. Hide admin panel
+12. Add more options to player menu
+13. Allow perferential voting, block voting, single non-transferable voting (etc)
+14. CODE CLEANUP
+15. Input sanitation
+16. Timestamps added to database
+17. Audit database to log all actions by admins
+18. menu added for Dept. State employees
+    - allow EOs to view votes
+    - allow EOs to mail admins
+    - Allow EOs to flag votes
+    - Allow EOs to delete votes (logged)
+19. Dept. State account and Staff only to create elections
+20. Reimplement speech system for the visually impaired
+
+And that's it :) will check off as completed.

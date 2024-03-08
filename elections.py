@@ -1,67 +1,84 @@
+# Import Statements
 import sqlite3
-from colorama import Fore , Back , Style
 import matplotlib.pyplot as plt
+from colorama import Fore, Back, Style
 
-conn = sqlite3.connect('ELECTION.db')
-
+# connect to elections database
+conn = sqlite3.connect('ELECTIONS.db')
 c = conn.cursor()
 
-c.execute('''CREATE TABLE IF NOT EXISTS Student_Panel (username text,password text)''')
-c.execute("""CREATE TABLE IF NOT EXISTS Admin_Panel (username text,password text)""")
+# create tables to store registered voters
+c.execute('''CREATE TABLE IF NOT EXISTS Player_Panel (
+    USERNAME text,
+    PASSWORD text,
+    STATUS text
+    )''')
+c.execute('''CREATE TABLE IF NOT EXISTS EO_Panel (
+    USERNAME text,
+    PASSWORD text
+)''')
+c.execute('''CREATE TABLE IF NOT EXISTS Admin_Panel (
+    USERNAME text,
+    PASSWORD text
+    )''')
 conn.commit()
 
-
-def student_login():
+# allow players to login
+def player_login():
     while True:
-        # global check_password1
-        # global u_name1
-        u_name1 = input("Enter Username : ")
-        uname1 = (u_name1,)
+        # request player's username
+        player_username = input("Enter Username : ")
+        username = (player_username,)
+
+        # search database for the given username
         try:
             c = conn.cursor()
-            c.execute("SELECT password FROM Student_Panel WHERE username = ? ", uname1)
-            check_password1 = c.fetchone()[0]  # [()]
+            c.execute("SELECT password FROM Student_Panel WHERE username = ? ", username)
+            password_checkpoint = c.fetchone()[0]  # finds and stores users password in working
             conn.commit()
-        except:
 
+        # catch error if user isn't in the database
+        except:
             print(Fore.RED + '')
             print(Back.BLACK + '')
             print(Style.BRIGHT + " \n                              There is no user found with this user name ,\n                          Please Signup Before You Login  \n")
             print(Style.RESET_ALL + " ")
-            i = input("Do You To Continue y/n : ")
-            if i == 'y':
+            wrong_username_flag = input("Do You To Continue? (y/n) : ")
+            if wrong_username_flag == 'y':
                 continue
             else:
                 return None
 
-        for i in range(5):
+        # fails if the user enters the wrong password 5 times
+        for password_attempts in range(5):
             password = input("Enter Password : ")
-            if check_password1 != password and i == 4:
+            if password_checkpoint != password and password_attempts == 4:
                 print(Fore.RED + '')
                 print(Back.BLACK + '')
-                print(Style.BRIGHT + "                                  You Can't Vote Temporarily Please Contact The Admin\n ")
+                print(Style.BRIGHT + "                   You Can't Vote Temporarily Please Contact An Admin To Reset Your Account\n ")
                 print(Style.RESET_ALL + " ")
                 return None
 
-            elif check_password1 != password:
-                print("Wrong password please enter valid password")
-                _i = input("Do You To Continue y/n : ")
-                if _i == 'y':
+            
+            elif password_checkpoint != password:
+                print("Wrong password. Please enter the correct password.")
+                wrong_password_flag = input("Do You To Continue y/n : ")
+                if wrong_password_flag == 'y':
                     continue
                 else:
                     return None
             else:
                 print(Fore.GREEN + '')
                 print(Back.BLACK + '')
-                print(Style.BRIGHT + "                                 ########## Student Panel Login Successful ##########\n ")
+                print(Style.BRIGHT + "                                 ########## Player Panel Login Successful ##########\n ")
                 print(Style.RESET_ALL + " ")
-                print("Student Panel Login Successful")
+                print("Player Panel Login Successful")
                 break
         try:
             global check_
             c = conn.cursor()
             c.execute("SELECT * from Candidate")
-            list_of_candi = c.fetchall()
+            list_of_candidates = c.fetchall()
             conn.commit()
             check_ = 2
         except:
@@ -75,7 +92,7 @@ def student_login():
 
         if check_ == 2:
             print("----------------------------------------------------------------------------------------------")
-            _list = ["Candidate_No", "Candidate_name", "Department", "Year_Of_Study"]
+            _list = ["Candidate_No", "Candidate_name", "Party", "Year_Of_Study"]
             print('|    Candidate_No     |    Candidate_name          |    Department    |    Year_Of_Study     |')
             print("----------------------------------------------------------------------------------------------")
 
@@ -313,9 +330,9 @@ def create_election():
                     return None
             else:
                 while True:
-                    departments_ = ['cse', 'mech', 'it', 'eee', 'ece', 'prod', 'ice', 'tex', 'auto', 'bmed', 'btec', 'civ', 'mety', 'rob','ftec', 'CSE', 'MECH', 'IT', 'EEE', 'ECE', 'PROD', 'ICE', 'TEX', 'AUTO', 'BMED', 'BTEC', 'CIV', 'METY', 'ROB', 'FTEC']
-                    department_ = input("Enter The Dept : ")
-                    if len(department_) < 2 or len(department_) > 4:
+                    parties = ['IND', 'GER', 'RNP', 'PAR', 'RRC', 'PJP', 'RIC']
+                    party = input("Enter The Party : ")
+                    if len(party) < 2 or len(party) > 4:
                         print("Requires At least 2 Character, At most 4 Character")
                         i_5 = input("Do You To Continue y/n : ")
                         if i_5 == 'y':
