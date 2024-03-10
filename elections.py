@@ -93,7 +93,7 @@ def player_login():
         if check_ == 2:
             print("----------------------------------------------------------------------------------------------")
             _list = ["Candidate_No", "Candidate_name", "Party", "Year_Of_Study"]
-            print('|    Candidate_No     |    Candidate_name          |    Department    |    Year_Of_Study     |')
+            print('|    Candidate_No     |    Candidate_name          |    Party    |    Year_Of_Study     |')
             print("----------------------------------------------------------------------------------------------")
 
             for i in list_of_candi:
@@ -669,7 +669,7 @@ while True:
     print(Back.BLACK + '')
     print(Style.BRIGHT + "  \n                                               THE VOTING SYSTEM  \n\n ")
     print(Style.RESET_ALL + " ")
-    print("""1) Student Panel 
+    print("""1) Player Panel 
 2) Admin 
 3) Exit""")
     select_panel = input("\nSelect your panel : ")
