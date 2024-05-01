@@ -1,0 +1,21 @@
+{
+    "elections": [
+        {
+            "title": "House of Representitives April 2024",
+            "counting_method": "1",
+            "num_seats": 11,
+            "candidates": [
+                {
+                    "name": "test",
+                    "party": "testparty",
+                    "votes": 2
+                },
+                {
+                    "name": "test2",
+                    "party": "testparty2",
+                    "votes": 0
+                }
+            ]
+        }
+    ]
+}
